@@ -1,0 +1,17 @@
+---
+- name: "Create a local copy of the config-repo"
+  hosts: [MyHosts]
+  tasks:
+    - name: "Clone the config-repo"
+      become: true
+      git:
+        repo: http://[Git Lab User]@gitlab.com/gerrit/configs-repo.git]
+        dest: /config-repo
+        accept_hostkey: yes
+    - name: "Create cron to automatically pull/update the local config-repo"
+      become: true
+      cron:
+        name: "Pull the config repo"
+        job: "git -C /config-repo pull"
+        user: root
+        cron_file: "ansible_git_update_config_repo"

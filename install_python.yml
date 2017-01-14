@@ -1,0 +1,9 @@
+- name: Install python
+  hosts:  [MyHosts]
+  gather_facts: no
+  become: true
+  tasks:
+    - name: install python2
+      raw: "apt-get update && apt-get -y install python"
+    - name: install pycurl
+      apt: pkg=python-pycurl update_cache=yes cache_valid_time=60
