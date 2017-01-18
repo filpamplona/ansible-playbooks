@@ -1,2 +1,3 @@
 # ansible-playbooks
-Ansible
+Ansible playbooks to create a swarm cluster.
+
