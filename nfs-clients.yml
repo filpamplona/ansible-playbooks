@@ -1,0 +1,19 @@
+- name: Create mount to NFS
+  hosts: nfs_clients
+  become: true
+  tasks:
+    - name: Ensure Create a directory to mount if it doesn't exist
+      file:
+        path: /mnt/docker_volumes
+        state: directory
+        mode: 0777
+        
+    - name: Ensure NFS common is installed.
+      apt: pkg=nfs-common update_cache=yes cache_valid_time=600
+
+    - name: Mount up NFS
+      mount:
+        name: /mnt/docker_volumes
+        src: 10.244.168.107:/DockerVolumes
+        fstype: nfs4
+        state: mounted
